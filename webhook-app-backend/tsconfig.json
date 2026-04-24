@@ -1,8 +1,13 @@
 {
-  "rootDir": "./src",
-  "outDir": "./dist",
-  "module": "commonjs",
-  "target": "ES2020",
-  "esModuleInterop": true,
-  "strict": true
+  "compilerOptions": {
+    "useDefineForClassFields": false,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "commonjs",
+    "target": "ES2020",
+    "strict": true
+  }
 }
