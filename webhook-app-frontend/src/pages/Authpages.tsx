@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+
 
 type AuthMode = "login" | "register";
 
@@ -31,6 +34,7 @@ const validate = (mode: AuthMode, data: FormData): FieldError => {
 };
 
 export default function AuthPages() {
+  const navigate = useNavigate();
   const [mode, setMode] = useState<AuthMode>("login");
   const [form, setForm] = useState<FormData>({ name: "", email: "", password: "", confirmPassword: "" });
   const [errors, setErrors] = useState<FieldError>({});
@@ -78,8 +82,7 @@ export default function AuthPages() {
       // ✅ Store JWT
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
-
-      setSubmitted(true);
+      navigate("/dashboard");
     } else {
         // REGISTER 
         const res = await fetch("http://localhost:3000/auth/register", {
@@ -101,7 +104,7 @@ export default function AuthPages() {
         return;
       }
 
-      setSubmitted(true);
+      navigate("/");
     }
   } catch (err) {
     setErrors({ email: "Server error" });
@@ -115,7 +118,6 @@ export default function AuthPages() {
     setMode(m);
     setForm({ name: "", email: "", password: "", confirmPassword: "" });
     setErrors({});
-    setSubmitted(false);
     setShowPassword(false);
   };
 
